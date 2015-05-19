@@ -89,7 +89,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ##     find_root_file(..., filename = &quot;^DESCRIPTION$&quot;, contents = &quot;^Package: &quot;, 
 ##         n = 1L, path = path)
 ## }
-## &lt;environment: 0x37c17b0&gt;</code></pre>
+## &lt;environment: 0x3ded7b0&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
 <pre><code>## [1] &quot;---&quot;                               &quot;title: \&quot;Finding files reliably\&quot;&quot;
 ## [3] &quot;author: \&quot;Kirill Müller\&quot;&quot;         &quot;date: \&quot;`r Sys.Date()`\&quot;&quot;         
@@ -107,7 +107,7 @@ R</code></pre>
 ##     find_root_file(..., filename = &quot;^LICENSE$&quot;, contents = NULL, 
 ##         n = -1L, path = path)
 ## }
-## &lt;environment: 0x336dd40&gt;</code></pre>
+## &lt;environment: 0x3999d40&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">try</span>(<span class="kw">dir.exists</span>(<span class="kw">R</span>(<span class="st">&quot;man&quot;</span>))))</code></pre>
 <pre><code>## [1] &quot;try-error&quot;</code></pre>
 </div>
