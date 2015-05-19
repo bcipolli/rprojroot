@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>find_root_file. rprojroot 0.0-2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">rprojroot 0.0-2</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>File paths relative to the root of a directory hierarchy</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>find_root_file(..., filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L, path&nbsp;=&nbsp;getwd())</div>
+<div>make_find_root_file(filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
+<div>make_fix_root_file(filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
+<div>find_rstudio_root_file(..., path&nbsp;=&nbsp;getwd())</div>
+<div>find_package_root_file(..., path&nbsp;=&nbsp;getwd())</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>...</dt>
+      <dd>Additional arguments passed to <code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code></dd>
+      <dt>filename,contents</dt>
+      <dd>Regular expressions to match the file name or contents</dd>
+      <dt>n</dt>
+      <dd>integer.  The (maximal) number of lines to
+    read.  Negative values indicate that one should read up to the end of
+    input on the connection.</dd>
+      <dt>path</dt>
+      <dd>The start directory</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+The normalized path of the root as specified by the search criteria.
+  Throws an error if no root is found
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Append an arbitrary number of path components to the root using
+<code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The <code>find_root_file</code> function is a simple wrapper around
+<code><a href='find_root.html'>find_root</a></code> that
+appends an arbitrary number of path components to the root using
+<code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>.
+The function <code>make_find_root_file</code> can be used to create shorthand functions
+such as <code>find_rstudio_root_file</code> and <code>find_package_root_file</code>.
+In many cases, the function <code>make_fix_root_file</code> is even more useful:
+It creates a shorthand function that is tied to a fixed root (as opposed to
+<code>make_find_root_file</code> which creates a function that will look for the
+root every time it is called).</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## Not run: 
+# find_package_root_file(&quot;tests&quot;, &quot;testthat.R&quot;)
+# make_find_root_file(glob2rx(&quot;DESCRIPTION&quot;), &quot;^Package: &quot;)
+# make_fix_root_file(glob2rx(&quot;DESCRIPTION&quot;), &quot;^Package: &quot;)
+# ## End(Not run)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>find_package_root_file</li><li>find_root_file</li><li>find_rstudio_root_file</li><li>make_find_root_file</li><li>make_fix_root_file</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='find_root.html'>find_root</a></code> <code><a href='http://www.inside-r.org/r-doc/utils/glob2rx'>glob2rx</a></code> <code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
