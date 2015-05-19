@@ -73,51 +73,181 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="a-simple-example" class="section level2">
 <h2>A simple example</h2>
-<p>Note that the following code produces identical results when building the vignette <em>and</em> when sourcing the chunk, provided that the project root is the current working directory or a parent thereof:</p>
+<p>The <code>find_root</code> function is the central function of this package. It returns the path to the first directory that matches the filtering criteria, or throws an error if there is no such directory.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rprojroot)
-<span class="kw">basename</span>(<span class="kw">find_root</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))</code></pre>
-<pre><code>## [1] &quot;source&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">filename =</span> <span class="st">&quot;DESCRIPTION&quot;</span>))</code></pre>
+
+<span class="co"># List all files below the root</span>
+<span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)), <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>##   [1] &quot;DESCRIPTION&quot;                                                               
+##   [2] &quot;inst/NEWS.Rd&quot;                                                              
+##   [3] &quot;inst/staticdocs/index.R&quot;                                                   
+##   [4] &quot;inst/web/css/bootstrap.css&quot;                                                
+##   [5] &quot;inst/web/css/bootstrap.min.css&quot;                                            
+##   [6] &quot;inst/web/css/bootstrap-responsive.css&quot;                                     
+##   [7] &quot;inst/web/css/bootstrap-responsive.min.css&quot;                                 
+##   [8] &quot;inst/web/css/highlight.css&quot;                                                
+##   [9] &quot;inst/web/css/staticdocs.css&quot;                                               
+##  [10] &quot;inst/web/find_root_file.html&quot;                                              
+##  [11] &quot;inst/web/find_root.html&quot;                                                   
+##  [12] &quot;inst/web/img/glyphicons-halflings.png&quot;                                     
+##  [13] &quot;inst/web/img/glyphicons-halflings-white.png&quot;                               
+##  [14] &quot;inst/web/index.html&quot;                                                       
+##  [15] &quot;inst/web/js/bootstrap.js&quot;                                                  
+##  [16] &quot;inst/web/js/bootstrap.min.js&quot;                                              
+##  [17] &quot;inst/web/vignettes/rprojroot.html&quot;                                         
+##  [18] &quot;Makefile&quot;                                                                  
+##  [19] &quot;makeR/branch-is-master&quot;                                                    
+##  [20] &quot;makeR/check-rd-files&quot;                                                      
+##  [21] &quot;makeR/check-rev-dep&quot;                                                       
+##  [22] &quot;makeR/get-pkg-name&quot;                                                        
+##  [23] &quot;makeR/get-pkg-version&quot;                                                     
+##  [24] &quot;makeR/gh-pages-build&quot;                                                      
+##  [25] &quot;makeR/git-is-clean&quot;                                                        
+##  [26] &quot;makeR/init-gh-pages&quot;                                                       
+##  [27] &quot;makeR/init-staticdocs&quot;                                                     
+##  [28] &quot;makeR/init-wercker&quot;                                                        
+##  [29] &quot;makeR/Makefile&quot;                                                            
+##  [30] &quot;makeR/Makefile.tmpl&quot;                                                       
+##  [31] &quot;makeR/postinstall&quot;                                                         
+##  [32] &quot;makeR/README.md&quot;                                                           
+##  [33] &quot;makeR/res/wercker.yml&quot;                                                     
+##  [34] &quot;makeR/uninstall&quot;                                                           
+##  [35] &quot;makeR/upgrade&quot;                                                             
+##  [36] &quot;makeR/winbuilder&quot;                                                          
+##  [37] &quot;man/find_root_file.Rd&quot;                                                     
+##  [38] &quot;man/find_root.Rd&quot;                                                          
+##  [39] &quot;NAMESPACE&quot;                                                                 
+##  [40] &quot;NEWS.md&quot;                                                                   
+##  [41] &quot;NEWS.md.tmpl&quot;                                                              
+##  [42] &quot;README.md&quot;                                                                 
+##  [43] &quot;R/file.R&quot;                                                                  
+##  [44] &quot;rprojroot.Rcheck/00check.log&quot;                                              
+##  [45] &quot;rprojroot.Rcheck/00install.out&quot;                                            
+##  [46] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/build/vignette.rds&quot;                  
+##  [47] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/DESCRIPTION&quot;                         
+##  [48] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/inst/doc/rprojroot.html&quot;             
+##  [49] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/inst/doc/rprojroot.R&quot;                
+##  [50] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/inst/doc/rprojroot.Rmd&quot;              
+##  [51] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/inst/NEWS.Rd&quot;                        
+##  [52] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/inst/staticdocs/index.R&quot;             
+##  [53] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/man/find_root_file.Rd&quot;               
+##  [54] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/man/find_root.Rd&quot;                    
+##  [55] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/NAMESPACE&quot;                           
+##  [56] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/R/file.R&quot;                            
+##  [57] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/R/root.R&quot;                            
+##  [58] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/R/rrmake.R&quot;                          
+##  [59] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/a/b/a&quot;      
+##  [60] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/a/b/b&quot;      
+##  [61] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/a/b/c/d&quot;    
+##  [62] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/b&quot;          
+##  [63] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/c&quot;          
+##  [64] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/hierarchy/DESCRIPTION&quot;
+##  [65] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat.R&quot;                    
+##  [66] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/tests/testthat/test-root.R&quot;          
+##  [67] &quot;rprojroot.Rcheck/00_pkg_src/rprojroot/vignettes/rprojroot.Rmd&quot;             
+##  [68] &quot;rprojroot.Rcheck/rprojroot/DESCRIPTION&quot;                                    
+##  [69] &quot;rprojroot.Rcheck/rprojroot/doc/index.html&quot;                                 
+##  [70] &quot;rprojroot.Rcheck/rprojroot/doc/rprojroot.html&quot;                             
+##  [71] &quot;rprojroot.Rcheck/rprojroot/doc/rprojroot.R&quot;                                
+##  [72] &quot;rprojroot.Rcheck/rprojroot/doc/rprojroot.Rmd&quot;                              
+##  [73] &quot;rprojroot.Rcheck/rprojroot-Ex.pdf&quot;                                         
+##  [74] &quot;rprojroot.Rcheck/rprojroot-Ex.R&quot;                                           
+##  [75] &quot;rprojroot.Rcheck/rprojroot-Ex.Rout&quot;                                        
+##  [76] &quot;rprojroot.Rcheck/rprojroot-Ex.timings&quot;                                     
+##  [77] &quot;rprojroot.Rcheck/rprojroot/help/aliases.rds&quot;                               
+##  [78] &quot;rprojroot.Rcheck/rprojroot/help/AnIndex&quot;                                   
+##  [79] &quot;rprojroot.Rcheck/rprojroot/help/paths.rds&quot;                                 
+##  [80] &quot;rprojroot.Rcheck/rprojroot/help/rprojroot.rdb&quot;                             
+##  [81] &quot;rprojroot.Rcheck/rprojroot/help/rprojroot.rdx&quot;                             
+##  [82] &quot;rprojroot.Rcheck/rprojroot/html/00Index.html&quot;                              
+##  [83] &quot;rprojroot.Rcheck/rprojroot/html/R.css&quot;                                     
+##  [84] &quot;rprojroot.Rcheck/rprojroot/INDEX&quot;                                          
+##  [85] &quot;rprojroot.Rcheck/rprojroot/Meta/hsearch.rds&quot;                               
+##  [86] &quot;rprojroot.Rcheck/rprojroot/Meta/links.rds&quot;                                 
+##  [87] &quot;rprojroot.Rcheck/rprojroot/Meta/nsInfo.rds&quot;                                
+##  [88] &quot;rprojroot.Rcheck/rprojroot/Meta/package.rds&quot;                               
+##  [89] &quot;rprojroot.Rcheck/rprojroot/Meta/Rd.rds&quot;                                    
+##  [90] &quot;rprojroot.Rcheck/rprojroot/Meta/vignette.rds&quot;                              
+##  [91] &quot;rprojroot.Rcheck/rprojroot/NAMESPACE&quot;                                      
+##  [92] &quot;rprojroot.Rcheck/rprojroot/NEWS.Rd&quot;                                        
+##  [93] &quot;rprojroot.Rcheck/rprojroot/R/rprojroot&quot;                                    
+##  [94] &quot;rprojroot.Rcheck/rprojroot/R/rprojroot.rdb&quot;                                
+##  [95] &quot;rprojroot.Rcheck/rprojroot/R/rprojroot.rdx&quot;                                
+##  [96] &quot;rprojroot.Rcheck/rprojroot/staticdocs/index.R&quot;                             
+##  [97] &quot;rprojroot.Rcheck/tests/startup.Rs&quot;                                         
+##  [98] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/a/b/a&quot;                           
+##  [99] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/a/b/b&quot;                           
+## [100] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/a/b/c/d&quot;                         
+## [101] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/b&quot;                               
+## [102] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/c&quot;                               
+## [103] &quot;rprojroot.Rcheck/tests/testthat/hierarchy/DESCRIPTION&quot;                     
+## [104] &quot;rprojroot.Rcheck/tests/testthat.R&quot;                                         
+## [105] &quot;rprojroot.Rcheck/tests/testthat.Rout&quot;                                      
+## [106] &quot;rprojroot.Rcheck/tests/testthat/test-root.R&quot;                               
+## [107] &quot;rprojroot.Rproj&quot;                                                           
+## [108] &quot;R/root.R&quot;                                                                  
+## [109] &quot;R/rrmake.R&quot;                                                                
+## [110] &quot;tests/testthat/hierarchy/a/b/a&quot;                                            
+## [111] &quot;tests/testthat/hierarchy/a/b/b&quot;                                            
+## [112] &quot;tests/testthat/hierarchy/a/b/c/d&quot;                                          
+## [113] &quot;tests/testthat/hierarchy/b&quot;                                                
+## [114] &quot;tests/testthat/hierarchy/c&quot;                                                
+## [115] &quot;tests/testthat/hierarchy/DESCRIPTION&quot;                                      
+## [116] &quot;tests/testthat/hierarchy/hierarchy.Rproj&quot;                                  
+## [117] &quot;tests/testthat.R&quot;                                                          
+## [118] &quot;tests/testthat/test-root.R&quot;                                                
+## [119] &quot;vignettes/rprojroot.R&quot;                                                     
+## [120] &quot;vignettes/rprojroot.Rmd&quot;                                                   
+## [121] &quot;wercker.yml&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find a file relative to the root</span>
+<span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">filename =</span> <span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
+<p>Note that the following code produces identical results when building the vignette <em>and</em> when sourcing the chunk, provided that the project root is the current working directory or a parent thereof.</p>
 </div>
 <div id="practical-use" class="section level2">
 <h2>Practical use</h2>
-<p>You can save some time for RStudio projects and packages:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(find_package_root_file)</code></pre>
+<p>To avoid specifying the search criteria for the project root every time, shortcut functions can be created. Shortcuts are predefined for RStudio projects and packages:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show definition of shortcut function</span>
+<span class="kw">print</span>(find_package_root_file)</code></pre>
 <pre><code>## function (..., path = getwd()) 
 ## {
 ##     find_root_file(..., filename = &quot;^DESCRIPTION$&quot;, contents = &quot;^Package: &quot;, 
 ##         n = 1L, path = path)
 ## }
-## &lt;environment: 0x3ded7b0&gt;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
+## &lt;environment: 0x441d7b0&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print first lines of the source for this document</span>
+<span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
 <pre><code>## [1] &quot;---&quot;                               &quot;title: \&quot;Finding files reliably\&quot;&quot;
 ## [3] &quot;author: \&quot;Kirill Müller\&quot;&quot;         &quot;date: \&quot;`r Sys.Date()`\&quot;&quot;         
 ## [5] &quot;output: rmarkdown::html_vignette&quot;  &quot;vignette: &gt;&quot;</code></pre>
-<p>If you’re lazy, define a shortcut:</p>
+<p>To save typing effort, define a shorter alias:</p>
 <pre class="sourceCode r"><code class="sourceCode r">P &lt;-<span class="st"> </span>find_package_root_file
+
+<span class="co"># Use a shorter alias</span>
 <span class="kw">file.exists</span>(<span class="kw">P</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>Legacy code can benefit immediately if the <code>file.path</code> function is overwritten.</p>
 <p>You might also want to define your project root differently (this fails here – we look for a file named <code>LICENSE</code> which is absent):</p>
-<pre class="sourceCode r"><code class="sourceCode r">R &lt;-<span class="st"> </span><span class="kw">make_find_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;LICENSE&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below a directory with a file named LICENSE</span>
+R &lt;-<span class="st"> </span><span class="kw">make_find_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;LICENSE&quot;</span>))
 R</code></pre>
 <pre><code>## function (..., path = getwd()) 
 ## {
 ##     find_root_file(..., filename = &quot;^LICENSE$&quot;, contents = NULL, 
 ##         n = -1L, path = path)
 ## }
-## &lt;environment: 0x3999d40&gt;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">try</span>(<span class="kw">dir.exists</span>(<span class="kw">R</span>(<span class="st">&quot;man&quot;</span>))))</code></pre>
+## &lt;environment: 0x39b19d0&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Our package does not have such a file, trying to find the root results in an error</span>
+<span class="kw">class</span>(<span class="kw">try</span>(<span class="kw">dir.exists</span>(<span class="kw">R</span>(<span class="st">&quot;man&quot;</span>))))</code></pre>
 <pre><code>## [1] &quot;try-error&quot;</code></pre>
 </div>
 <div id="fixed-root" class="section level2">
 <h2>Fixed root</h2>
-<p>If there is only one root, things get even simpler: We can create a function that computes a path relative to the root <em>at creation time</em>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))
-<span class="kw">formals</span>(F)</code></pre>
-<pre><code>## $...</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))</code></pre>
+<p>We can also create a function that computes a path relative to the root <em>at creation time</em>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below the current root</span>
+F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))
+
+<span class="co"># Show contents of the NAMESPACE file in our project</span>
+<span class="kw">readLines</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))</code></pre>
 <pre><code>## [1] &quot;# Generated by roxygen2 (4.1.1): do not edit by hand&quot;
 ## [2] &quot;&quot;                                                    
 ## [3] &quot;export(find_package_root_file)&quot;                      
@@ -127,7 +257,8 @@ R</code></pre>
 ## [7] &quot;export(make_find_root_file)&quot;                         
 ## [8] &quot;export(make_fix_root_file)&quot;</code></pre>
 <p>This even works if we later change the working directory to somewhere outside the project:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">local</span>({
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print the size of the namespace file, working directory outside the project</span>
+<span class="kw">local</span>({
   oldwd &lt;-<span class="st"> </span><span class="kw">setwd</span>(<span class="st">&quot;../..&quot;</span>)
   <span class="kw">on.exit</span>(<span class="kw">setwd</span>(oldwd), <span class="dt">add =</span> <span class="ot">TRUE</span>)
   <span class="kw">file.size</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))
