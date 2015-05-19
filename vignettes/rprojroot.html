@@ -98,7 +98,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ##     find_root_file(..., filename = &quot;^DESCRIPTION$&quot;, contents = &quot;^Package: &quot;, 
 ##         n = 1L, path = path)
 ## }
-## &lt;environment: 0x39e27b0&gt;</code></pre>
+## &lt;environment: 0x3cde7b0&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print first lines of the source for this document</span>
 <span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
 <pre><code>## [1] &quot;---&quot;                               &quot;title: \&quot;Finding files reliably\&quot;&quot;
@@ -119,7 +119,7 @@ R</code></pre>
 ##     find_root_file(..., filename = &quot;^LICENSE$&quot;, contents = NULL, 
 ##         n = -1L, path = path)
 ## }
-## &lt;environment: 0x33f6f88&gt;</code></pre>
+## &lt;environment: 0x36f2f88&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Our package does not have such a file, trying to find the root results in an error</span>
 <span class="kw">class</span>(<span class="kw">try</span>(<span class="kw">dir.exists</span>(<span class="kw">R</span>(<span class="st">&quot;man&quot;</span>))))</code></pre>
 <pre><code>## [1] &quot;try-error&quot;</code></pre>
