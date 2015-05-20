@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>find_root. rprojroot 0.0-4</title>
+<title>criteria. rprojroot 0.0-4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,71 +48,49 @@
         
       </header>
       
-      <h1>Find the root of a directory hierarchy</h1>
+      <h1>Prespecified criteria</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>find_root(criterion, path&nbsp;=&nbsp;getwd())</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>criterion</dt>
-      <dd>A criterion created by <code><a href='root_criterion.html'>root_criterion</a></code>, e.g.,
-<code>has_file(...)</code></dd>
-      <dt>path</dt>
-      <dd>The start directory</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+    <pre><div>criteria</div>
+<div>is_rstudio_project</div>
+<div>is_r_package</div></pre>
+        
+    <div class="Format">
+      <h2>Format</h2>
 
-      <p><dl>
-The normalized path of the root as specified by the search criterion.
-  Throws an error if no root is found
-</dl></p>
+      <p><pre>List of 2
+ $ is_rstudio_project: chr "Root criterion: Contains a file matching '^.*\\.Rproj$' with contents matching '^Version: ' in the first 1 lines"
+ $ is_r_package      : chr "Root criterion: Contains a file 'DESCRIPTION' with contents matching '^Package: '"
+</pre></p>
   
     </div>
 
     <div class="Description">
       <h2>Description</h2>
 
-      <p>A <em>root</em> is defined as a directory that contains a regular file
-whose name matches a given pattern and which optionally contains a given text.
-The search for a root starts at a given directory (the working directory
-by default), and proceeds up the directory hierarchy.</p>
+      <p>This is a collection of commonly used root criteria.</p>
   
     </div>
 
     <div class="Details">
       <h2>Details</h2>
 
-      <p>Starting from the working directory, the <code>find_root</code> function searches
-for the root.
-If a root is found, the <code>...</code> arguments are used to construct a path;
-thus, if no extra arguments are given, the root is returned.
-If no root is found, an error is thrown.</p>
+      <p><code>is_rstudio_project</code> looks for a file with extension <code>.Rproj</code>.</p>
+  
+      <p><code>is_r_package</code> looks for a <code>DESCRIPTION</code> file.</p>
   
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## Not run: 
-# find_root(glob2rx(&quot;DESCRIPTION&quot;), &quot;^Package: &quot;)
-# ## End(Not run)
-</div></pre>
-  </div>
+      </div>
   <div class="span4">
     <!-- <ul>
-      <li>find_root</li>
+      <li>criteria</li><li>is_r_package</li><li>is_rstudio_project</li>
     </ul>
     <ul>
-      
+      <li>datasets</li>
     </ul> -->
       
-    <h2>See also</h2>
-    
-<code><a href='http://www.inside-r.org/r-doc/utils/glob2rx'>glob2rx</a></code> <code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>
-
         
   </div>
 </div>
