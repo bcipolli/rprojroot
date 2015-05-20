@@ -69,27 +69,27 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>If we could only get hold of our…</p>
 <div id="project-root" class="section level2">
 <h2>Project root</h2>
-<p>We assume a self-contained project where all files and directories are located below a common <em>root</em> directory. Often, this root contains a regular file whose name matches a given pattern, and/or whose contents match another pattern. In this case, the following method reliably finds our project root:</p>
+<p>We assume a self-contained project where all files and directories are located below a common <em>root</em> directory. Also, there should be a way to correctly identify this root directory. (Often, the root contains a regular file whose name matches a given pattern, and/or whose contents match another pattern.) In this case, the following method reliably finds our project root:</p>
 <ul>
 <li>Start the search in any subdirectory of our project</li>
-<li>Proceed up the directory hierarchy until finding a file that matches the criteria</li>
+<li>Proceed up the directory hierarchy until the root directory has been identified</li>
 </ul>
 <p>The Git version control system (and probably many other tools) use a similar approach: A Git command can be executed from within any subdirectory of a repository.</p>
 </div>
 <div id="a-simple-example" class="section level2">
 <h2>A simple example</h2>
-<p>The <code>find_root</code> function is the central function of this package. It returns the path to the first directory that matches the filtering criteria, or throws an error if there is no such directory.</p>
+<p>The <code>find_root</code> function is the central function of this package. It returns the path to the first directory that matches the filtering criteria, or throws an error if there is no such directory. Filtering criteria are constructed in a generic fashion using the <code>root_criterion()</code> function, the <code>has_file()</code> function constructs a criterion that checks for the presence of a file with a specific name and specific contents.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rprojroot)
 
 <span class="co"># List all files and directories below the root</span>
-<span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
+<span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
 <pre><code>##  [1] &quot;DESCRIPTION&quot;      &quot;inst&quot;             &quot;Makefile&quot;        
 ##  [4] &quot;makeR&quot;            &quot;man&quot;              &quot;NAMESPACE&quot;       
 ##  [7] &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;     &quot;R&quot;               
 ## [10] &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot; &quot;rprojroot.Rproj&quot; 
 ## [13] &quot;tests&quot;            &quot;vignettes&quot;        &quot;wercker.yml&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find a file relative to the root</span>
-<span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">filename =</span> <span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
+<span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">criterion =</span> <span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>Note that the following code produces identical results when building the vignette <em>and</em> when sourcing the chunk in RStudio, provided that the project root is the current working directory or a parent thereof.</p>
 </div>
@@ -100,10 +100,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="kw">print</span>(find_package_root_file)</code></pre>
 <pre><code>## function (..., path = getwd()) 
 ## {
-##     find_root_file(..., filename = &quot;^DESCRIPTION$&quot;, contents = &quot;^Package: &quot;, 
-##         n = 1L, path = path)
+##     find_root_file(..., criterion = list(testfun = function (path) 
+##     {
+##         testfile &lt;- file.path(path, &quot;DESCRIPTION&quot;)
+##         if (!file.exists(testfile)) 
+##             return(FALSE)
+##         if (is_dir(testfile)) 
+##             return(FALSE)
+##         match_contents(testfile, &quot;^Package: &quot;, 1L)
+##     }, desc = &quot;Contains a file 'DESCRIPTION' with contents matching '^Package: ' in the first 1 lines&quot;), 
+##         path = path)
 ## }
-## &lt;environment: 0x4c683b0&gt;</code></pre>
+## &lt;environment: 0x3b81a38&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print first lines of the source for this document</span>
 <span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
 <pre><code>## [1] &quot;---&quot;                                               
@@ -120,14 +128,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre><code>## [1] TRUE</code></pre>
 <p>Different notions of a project root are conceivable. The next example looks for a file named <code>LICENSE</code> which is absent, querying the root results in an error:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below a directory with a file named LICENSE</span>
-R &lt;-<span class="st"> </span><span class="kw">make_find_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;LICENSE&quot;</span>))
+R &lt;-<span class="st"> </span><span class="kw">make_find_root_file</span>(<span class="kw">has_file</span>(<span class="st">&quot;LICENSE&quot;</span>))
 R</code></pre>
 <pre><code>## function (..., path = getwd()) 
 ## {
-##     find_root_file(..., filename = &quot;^LICENSE$&quot;, contents = NULL, 
-##         n = -1L, path = path)
+##     find_root_file(..., criterion = list(testfun = function (path) 
+##     {
+##         testfile &lt;- file.path(path, &quot;LICENSE&quot;)
+##         if (!file.exists(testfile)) 
+##             return(FALSE)
+##         if (is_dir(testfile)) 
+##             return(FALSE)
+##         match_contents(testfile, NULL, -1L)
+##     }, desc = &quot;Contains a file 'LICENSE'&quot;), path = path)
 ## }
-## &lt;environment: 0x4677ef8&gt;</code></pre>
+## &lt;environment: 0x42dd5d8&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Our package does not have such a file, trying to find the root results in an error</span>
 <span class="kw">class</span>(<span class="kw">try</span>(<span class="kw">R</span>()))</code></pre>
 <pre><code>## [1] &quot;try-error&quot;</code></pre>
@@ -136,18 +151,24 @@ R</code></pre>
 <h2>Fixed root</h2>
 <p>We can also create a function that computes a path relative to the root <em>at creation time</em>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below the current root</span>
-F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(<span class="kw">glob2rx</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))
+F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(<span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))
 
 <span class="co"># Show contents of the NAMESPACE file in our project</span>
 <span class="kw">readLines</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))</code></pre>
-<pre><code>## [1] &quot;# Generated by roxygen2 (4.1.1): do not edit by hand&quot;
-## [2] &quot;&quot;                                                    
-## [3] &quot;export(find_package_root_file)&quot;                      
-## [4] &quot;export(find_root)&quot;                                   
-## [5] &quot;export(find_root_file)&quot;                              
-## [6] &quot;export(find_rstudio_root_file)&quot;                      
-## [7] &quot;export(make_find_root_file)&quot;                         
-## [8] &quot;export(make_fix_root_file)&quot;</code></pre>
+<pre><code>##  [1] &quot;# Generated by roxygen2 (4.1.1): do not edit by hand&quot;
+##  [2] &quot;&quot;                                                    
+##  [3] &quot;S3method(format,root_criterion)&quot;                     
+##  [4] &quot;S3method(print,root_criterion)&quot;                      
+##  [5] &quot;export(find_package_root_file)&quot;                      
+##  [6] &quot;export(find_root)&quot;                                   
+##  [7] &quot;export(find_root_file)&quot;                              
+##  [8] &quot;export(find_rstudio_root_file)&quot;                      
+##  [9] &quot;export(has_file)&quot;                                    
+## [10] &quot;export(has_file_pattern)&quot;                            
+## [11] &quot;export(is.root_criterion)&quot;                           
+## [12] &quot;export(make_find_root_file)&quot;                         
+## [13] &quot;export(make_fix_root_file)&quot;                          
+## [14] &quot;export(root_criterion)&quot;</code></pre>
 <p>This function can be used even if we later change the working directory to somewhere outside the project:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print the size of the namespace file, working directory outside the project</span>
 <span class="kw">local</span>({
@@ -155,7 +176,7 @@ F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(<span
   <span class="kw">on.exit</span>(<span class="kw">setwd</span>(oldwd), <span class="dt">add =</span> <span class="ot">TRUE</span>)
   <span class="kw">file.size</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))
 })</code></pre>
-<pre><code>## [1] 212</code></pre>
+<pre><code>## [1] 366</code></pre>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>

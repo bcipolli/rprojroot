@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>find_root_file. rprojroot 0.0-2</title>
+<title>find_root_file. rprojroot 0.0-3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">rprojroot 0.0-2</a>
+      <a class="brand" href="#">rprojroot 0.0-3</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,9 +53,9 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>find_root_file(..., filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L, path&nbsp;=&nbsp;getwd())</div>
-<div>make_find_root_file(filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
-<div>make_fix_root_file(filename, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
+    <pre><div>find_root_file(..., criterion, path&nbsp;=&nbsp;getwd())</div>
+<div>make_find_root_file(criterion)</div>
+<div>make_fix_root_file(criterion)</div>
 <div>find_rstudio_root_file(..., path&nbsp;=&nbsp;getwd())</div>
 <div>find_package_root_file(..., path&nbsp;=&nbsp;getwd())</div></pre>
     
@@ -63,12 +63,9 @@
     <dl>
       <dt>...</dt>
       <dd>Additional arguments passed to <code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code></dd>
-      <dt>filename,contents</dt>
-      <dd>Regular expressions to match the file name or contents</dd>
-      <dt>n</dt>
-      <dd>integer.  The (maximal) number of lines to
-    read.  Negative values indicate that one should read up to the end of
-    input on the connection.</dd>
+      <dt>criterion</dt>
+      <dd>A criterion created by <code><a href='root_criterion.html'>root_criterion</a></code>, e.g.,
+<code>has_file(...)</code></dd>
       <dt>path</dt>
       <dd>The start directory</dd>
     </dl>

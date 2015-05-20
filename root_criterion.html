@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>root_criterion. rprojroot 0.0-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">rprojroot 0.0-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Is a directory the project root?</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>root_criterion(testfun, desc)</div>
+<div>is.root_criterion(x)</div>
+<div>has_file(filepath, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
+<div>has_file_pattern(pattern, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>testfun</dt>
+      <dd>A function with one parameter that returns <code>TRUE</code>
+if the directory specified by this parameter is the project root,
+and <code>FALSE</code> otherwise</dd>
+      <dt>desc</dt>
+      <dd>A textual description of the test criterion</dd>
+      <dt>x</dt>
+      <dd>An object</dd>
+      <dt>filepath</dt>
+      <dd>File path (can contain directories)</dd>
+      <dt>contents</dt>
+      <dd>Regular expression to match the file contents</dd>
+      <dt>n</dt>
+      <dd>integer.  The (maximal) number of lines to
+    read.  Negative values indicate that one should read up to the end of
+    input on the connection.</dd>
+      <dt>pattern</dt>
+      <dd>Regular expression to match the file name</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Objects of the <code>root_criterion</code> class decide if a
+given directory is a project root.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Construct criteria using <code>root_criterion</code> in a very general fashion
+by specifying a function with a <code>path</code> argument, and a description.</p>
+  
+      <p>The <code>has_file</code> function constructs a criterion that checks for the
+existence of a specific file (which itself can be in a subdirectory of the
+root) with specific contents.</p>
+  
+      <p>The <code>has_file_pattern</code> function constructs a criterion that checks for the
+existence of a file that matches a pattern, with specific contents.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>has_file</li><li>has_file_pattern</li><li>is.root_criterion</li><li>root_criterion</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
