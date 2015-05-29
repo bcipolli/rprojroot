@@ -199,12 +199,9 @@ F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(is_r_
 })</code></pre>
 <pre><code>## [1] 602</code></pre>
 </div>
-</div>
-<div id="other-applications" class="section level2">
-<h2>Other applications</h2>
 <div id="cascading-r-profile" class="section level3">
 <h3>Cascading R profile</h3>
-<p>Add the following to your <code>.Rprofile</code> to load the next profile further up the path if it exists.</p>
+<p>Add the following to a local <code>.Rprofile</code> to load the next profile further up the path if it exists.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">try</span>(<span class="kw">source</span>(
   rprojroot::<span class="kw">find_root_file</span>(
     <span class="st">&quot;.Rprofile&quot;</span>, <span class="dt">criterion =</span> <span class="st">&quot;.Rprofile&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;..&quot;</span>),
