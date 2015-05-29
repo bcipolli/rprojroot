@@ -53,19 +53,19 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>find_root_file(..., criterion, path&nbsp;=&nbsp;getwd())</div>
+    <pre><div>find_root_file(..., criterion, path&nbsp;=&nbsp;".")</div>
 <div>make_find_root_file(criterion)</div>
 <div>make_fix_root_file(criterion)</div>
-<div>find_rstudio_root_file(..., path&nbsp;=&nbsp;getwd())</div>
-<div>find_package_root_file(..., path&nbsp;=&nbsp;getwd())</div></pre>
+<div>find_rstudio_root_file(..., path&nbsp;=&nbsp;".")</div>
+<div>find_package_root_file(..., path&nbsp;=&nbsp;".")</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>...</dt>
       <dd>Additional arguments passed to <code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code></dd>
       <dt>criterion</dt>
-      <dd>A criterion created by <code><a href='root_criterion.html'>root_criterion</a></code>, e.g.,
-<code>has_file(...)</code></dd>
+      <dd>A criterion, will be coerced using
+<code><a href='root_criterion.html'>as.root_criterion</a></code></dd>
       <dt>path</dt>
       <dd>The start directory</dd>
     </dl>

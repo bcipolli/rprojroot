@@ -53,13 +53,13 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>find_root(criterion, path&nbsp;=&nbsp;getwd())</div></pre>
+    <pre><div>find_root(criterion, path&nbsp;=&nbsp;".")</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>criterion</dt>
-      <dd>A criterion created by <code><a href='root_criterion.html'>root_criterion</a></code>, e.g.,
-<code>has_file(...)</code></dd>
+      <dd>A criterion, will be coerced using
+<code><a href='root_criterion.html'>as.root_criterion</a></code></dd>
       <dt>path</dt>
       <dd>The start directory</dd>
     </dl>

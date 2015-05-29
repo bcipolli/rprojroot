@@ -10,7 +10,7 @@
 
 <meta name="author" content="Kirill Müller" />
 
-<meta name="date" content="2015-05-20" />
+<meta name="date" content="2015-05-29" />
 
 <title>Finding files in project subdirectories</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Finding files in project subdirectories</h1>
 <h4 class="author"><em>Kirill Müller</em></h4>
-<h4 class="date"><em>2015-05-20</em></h4>
+<h4 class="date"><em>2015-05-29</em></h4>
 </div>
 
 
@@ -69,15 +69,29 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>If we could only get hold of our…</p>
 <div id="project-root" class="section level2">
 <h2>Project root</h2>
-<p>We assume a self-contained project where all files and directories are located below a common <em>root</em> directory. Also, there should be a way to correctly identify this root directory. (Often, the root contains a regular file whose name matches a given pattern, and/or whose contents match another pattern.) In this case, the following method reliably finds our project root:</p>
+<p>For an R package, the root is defined by the location of the <code>DESCRIPTION</code> file:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rprojroot)
+
+<span class="co"># List all files and directories below the root</span>
+<span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))</code></pre>
+<pre><code>##  [1] &quot;DESCRIPTION&quot;      &quot;inst&quot;             &quot;Makefile&quot;        
+##  [4] &quot;makeR&quot;            &quot;man&quot;              &quot;NAMESPACE&quot;       
+##  [7] &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;     &quot;R&quot;               
+## [10] &quot;readme&quot;           &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot;
+## [13] &quot;rprojroot.Rproj&quot;  &quot;tests&quot;            &quot;vignettes&quot;       
+## [16] &quot;wercker.yml&quot;</code></pre>
+<div id="the-general-case" class="section level3">
+<h3>The general case</h3>
+<p>We assume a self-contained project where all files and directories are located below a common <em>root</em> directory. Also, there should be a way to correctly identify this root directory. (Often, the root contains a regular file whose name matches a given pattern, and/or whose contents match another pattern.)</p>
+<p>In this case, the following method reliably finds our project root:</p>
 <ul>
 <li>Start the search in any subdirectory of our project</li>
 <li>Proceed up the directory hierarchy until the root directory has been identified</li>
 </ul>
 <p>The Git version control system (and probably many other tools) use a similar approach: A Git command can be executed from within any subdirectory of a repository.</p>
 </div>
-<div id="a-simple-example" class="section level2">
-<h2>A simple example</h2>
+<div id="a-simple-example" class="section level3">
+<h3>A simple example</h3>
 <p>The <code>find_root</code> function is the central function of this package. It returns the path to the first directory that matches the filtering criteria, or throws an error if there is no such directory. Filtering criteria are constructed in a generic fashion using the <code>root_criterion()</code> function, the <code>has_file()</code> function constructs a criterion that checks for the presence of a file with a specific name and specific contents.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rprojroot)
 
@@ -86,17 +100,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre><code>##  [1] &quot;DESCRIPTION&quot;      &quot;inst&quot;             &quot;Makefile&quot;        
 ##  [4] &quot;makeR&quot;            &quot;man&quot;              &quot;NAMESPACE&quot;       
 ##  [7] &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;     &quot;R&quot;               
-## [10] &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot; &quot;rprojroot.Rproj&quot; 
-## [13] &quot;tests&quot;            &quot;vignettes&quot;        &quot;wercker.yml&quot;</code></pre>
+## [10] &quot;readme&quot;           &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot;
+## [13] &quot;rprojroot.Rproj&quot;  &quot;tests&quot;            &quot;vignettes&quot;       
+## [16] &quot;wercker.yml&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find a file relative to the root</span>
 <span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">criterion =</span> <span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>Note that the following code produces identical results when building the vignette <em>and</em> when sourcing the chunk in RStudio, provided that the project root is the current working directory or a parent thereof.</p>
+<p>Note that the following code produces identical results when building the vignette <em>and</em> when sourcing the chunk in RStudio, provided that the current working directory is the project root or anywhere below.</p>
 </div>
-<div id="criteria" class="section level2">
-<h2>Criteria</h2>
+<div id="criteria" class="section level3">
+<h3>Criteria</h3>
 <p>The <code>has_file()</code> function (and the more general <code>root_criterion()</code>) both return an S3 object of class <code>root_criterion</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</code></pre>
+<pre><code>## Root criterion: Contains a file 'DESCRIPTION'</code></pre>
+<p>In addition, character values are coerced to <code>has_file</code> criteria by default, this coercion is applied automatically by <code>find_root()</code>. (This feature is used by the introductory example.)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.root_criterion</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</code></pre>
 <pre><code>## Root criterion: Contains a file 'DESCRIPTION'</code></pre>
 <p>The return value of these functions can be stored and reused; in fact, the package provides 2 such criteria:</p>
 <pre class="sourceCode r"><code class="sourceCode r">criteria</code></pre>
@@ -116,8 +134,8 @@ has_license</code></pre>
 is_projecttemplate_project</code></pre>
 <pre><code>## Root criterion: Contains a file 'config/global.dcf' with contents matching '^version: '</code></pre>
 </div>
-<div id="shortcuts" class="section level2">
-<h2>Shortcuts</h2>
+<div id="shortcuts" class="section level3">
+<h3>Shortcuts</h3>
 <p>To avoid specifying the search criteria for the project root every time, shortcut functions can be created. The <code>find_package_root_file</code> is a shortcut for <code>find_root_file(..., criterion = is_r_package)</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print first lines of the source for this document</span>
 <span class="kw">head</span>(<span class="kw">readLines</span>(<span class="kw">find_package_root_file</span>(<span class="st">&quot;vignettes&quot;</span>, <span class="st">&quot;rprojroot.Rmd&quot;</span>)))</code></pre>
@@ -142,8 +160,8 @@ R &lt;-<span class="st"> </span><span class="kw">make_find_root_file</span>(has_
 <pre><code>## Error: No root directory found. Test criterion:
 ## Contains a file 'LICENSE'</code></pre>
 </div>
-<div id="fixed-root" class="section level2">
-<h2>Fixed root</h2>
+<div id="fixed-root" class="section level3">
+<h3>Fixed root</h3>
 <p>We can also create a function that computes a path relative to the root <em>at creation time</em>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below the current root</span>
 F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(is_r_package)
@@ -152,22 +170,26 @@ F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(is_r_
 <span class="kw">readLines</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))</code></pre>
 <pre><code>##  [1] &quot;# Generated by roxygen2 (4.1.1): do not edit by hand&quot;
 ##  [2] &quot;&quot;                                                    
-##  [3] &quot;S3method(format,root_criterion)&quot;                     
-##  [4] &quot;S3method(print,root_criterion)&quot;                      
-##  [5] &quot;S3method(str,root_criteria)&quot;                         
-##  [6] &quot;export(criteria)&quot;                                    
-##  [7] &quot;export(find_package_root_file)&quot;                      
-##  [8] &quot;export(find_root)&quot;                                   
-##  [9] &quot;export(find_root_file)&quot;                              
-## [10] &quot;export(find_rstudio_root_file)&quot;                      
-## [11] &quot;export(has_file)&quot;                                    
-## [12] &quot;export(has_file_pattern)&quot;                            
-## [13] &quot;export(is.root_criterion)&quot;                           
-## [14] &quot;export(is_r_package)&quot;                                
-## [15] &quot;export(is_rstudio_project)&quot;                          
-## [16] &quot;export(make_find_root_file)&quot;                         
-## [17] &quot;export(make_fix_root_file)&quot;                          
-## [18] &quot;export(root_criterion)&quot;</code></pre>
+##  [3] &quot;S3method(as.root_criterion,character)&quot;               
+##  [4] &quot;S3method(as.root_criterion,default)&quot;                 
+##  [5] &quot;S3method(as.root_criterion,root_criterion)&quot;          
+##  [6] &quot;S3method(format,root_criterion)&quot;                     
+##  [7] &quot;S3method(print,root_criterion)&quot;                      
+##  [8] &quot;S3method(str,root_criteria)&quot;                         
+##  [9] &quot;export(as.root_criterion)&quot;                           
+## [10] &quot;export(criteria)&quot;                                    
+## [11] &quot;export(find_package_root_file)&quot;                      
+## [12] &quot;export(find_root)&quot;                                   
+## [13] &quot;export(find_root_file)&quot;                              
+## [14] &quot;export(find_rstudio_root_file)&quot;                      
+## [15] &quot;export(has_file)&quot;                                    
+## [16] &quot;export(has_file_pattern)&quot;                            
+## [17] &quot;export(is.root_criterion)&quot;                           
+## [18] &quot;export(is_r_package)&quot;                                
+## [19] &quot;export(is_rstudio_project)&quot;                          
+## [20] &quot;export(make_find_root_file)&quot;                         
+## [21] &quot;export(make_fix_root_file)&quot;                          
+## [22] &quot;export(root_criterion)&quot;</code></pre>
 <p>This function can be used even if we later change the working directory to somewhere outside the project:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print the size of the namespace file, working directory outside the project</span>
 <span class="kw">local</span>({
@@ -175,7 +197,19 @@ F &lt;-<span class="st"> </span><span class="kw">make_fix_root_file</span>(is_r_
   <span class="kw">on.exit</span>(<span class="kw">setwd</span>(oldwd), <span class="dt">add =</span> <span class="ot">TRUE</span>)
   <span class="kw">file.size</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))
 })</code></pre>
-<pre><code>## [1] 459</code></pre>
+<pre><code>## [1] 602</code></pre>
+</div>
+</div>
+<div id="other-applications" class="section level2">
+<h2>Other applications</h2>
+<div id="cascading-r-profile" class="section level3">
+<h3>Cascading R profile</h3>
+<p>Add the following to your <code>.Rprofile</code> to load the next profile further up the path if it exists.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">try</span>(<span class="kw">source</span>(
+  rprojroot::<span class="kw">find_root_file</span>(
+    <span class="st">&quot;.Rprofile&quot;</span>, <span class="dt">criterion =</span> <span class="st">&quot;.Rprofile&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;..&quot;</span>),
+  <span class="dt">chdir =</span> <span class="ot">TRUE</span>))</code></pre>
+</div>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>

@@ -55,6 +55,9 @@
     <h2>Usage</h2>
     <pre><div>root_criterion(testfun, desc)</div>
 <div>is.root_criterion(x)</div>
+<div>as.root_criterion(x)</div>
+<div>"as.root_criterion"(x)</div>
+<div>"as.root_criterion"(x)</div>
 <div>has_file(filepath, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div>
 <div>has_file_pattern(pattern, contents&nbsp;=&nbsp;NULL, n&nbsp;=&nbsp;-1L)</div></pre>
     
@@ -94,6 +97,10 @@ given directory is a project root.</p>
       <p>Construct criteria using <code>root_criterion</code> in a very general fashion
 by specifying a function with a <code>path</code> argument, and a description.</p>
   
+      <p>The <code>as.root_criterion</code> function accepts objects of class
+<code>root_criterion</code>, and character values; the latter will be
+converted to criteria using <code>has_file</code>.</p>
+  
       <p>The <code>has_file</code> function constructs a criterion that checks for the
 existence of a specific file (which itself can be in a subdirectory of the
 root) with specific contents.</p>
@@ -105,7 +112,7 @@ existence of a file that matches a pattern, with specific contents.</p>
       </div>
   <div class="span4">
     <!-- <ul>
-      <li>has_file</li><li>has_file_pattern</li><li>is.root_criterion</li><li>root_criterion</li>
+      <li>as.root_criterion</li><li>as.root_criterion.character</li><li>as.root_criterion.root_criterion</li><li>has_file</li><li>has_file_pattern</li><li>is.root_criterion</li><li>root_criterion</li>
     </ul>
     <ul>
       
