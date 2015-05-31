@@ -10,7 +10,7 @@
 
 <meta name="author" content="Kirill Müller" />
 
-<meta name="date" content="2015-05-29" />
+<meta name="date" content="2015-05-31" />
 
 <title>Finding files in project subdirectories</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Finding files in project subdirectories</h1>
 <h4 class="author"><em>Kirill Müller</em></h4>
-<h4 class="date"><em>2015-05-29</em></h4>
+<h4 class="date"><em>2015-05-31</em></h4>
 </div>
 
 
@@ -74,12 +74,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <span class="co"># List all files and directories below the root</span>
 <span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="st">&quot;DESCRIPTION&quot;</span>))</code></pre>
-<pre><code>##  [1] &quot;DESCRIPTION&quot;      &quot;inst&quot;             &quot;Makefile&quot;        
-##  [4] &quot;makeR&quot;            &quot;man&quot;              &quot;NAMESPACE&quot;       
-##  [7] &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;     &quot;R&quot;               
-## [10] &quot;readme&quot;           &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot;
-## [13] &quot;rprojroot.Rproj&quot;  &quot;tests&quot;            &quot;vignettes&quot;       
-## [16] &quot;wercker.yml&quot;</code></pre>
+<pre><code>##  [1] &quot;appveyor.yml&quot;     &quot;DESCRIPTION&quot;      &quot;inst&quot;            
+##  [4] &quot;Makefile&quot;         &quot;makeR&quot;            &quot;man&quot;             
+##  [7] &quot;NAMESPACE&quot;        &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;    
+## [10] &quot;R&quot;                &quot;readme&quot;           &quot;README.md&quot;       
+## [13] &quot;rprojroot.Rcheck&quot; &quot;rprojroot.Rproj&quot;  &quot;tests&quot;           
+## [16] &quot;vignettes&quot;        &quot;wercker.yml&quot;</code></pre>
 <div id="the-general-case" class="section level3">
 <h3>The general case</h3>
 <p>We assume a self-contained project where all files and directories are located below a common <em>root</em> directory. Also, there should be a way to correctly identify this root directory. (Often, the root contains a regular file whose name matches a given pattern, and/or whose contents match another pattern.)</p>
@@ -97,12 +97,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <span class="co"># List all files and directories below the root</span>
 <span class="kw">dir</span>(<span class="kw">find_root</span>(<span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
-<pre><code>##  [1] &quot;DESCRIPTION&quot;      &quot;inst&quot;             &quot;Makefile&quot;        
-##  [4] &quot;makeR&quot;            &quot;man&quot;              &quot;NAMESPACE&quot;       
-##  [7] &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;     &quot;R&quot;               
-## [10] &quot;readme&quot;           &quot;README.md&quot;        &quot;rprojroot.Rcheck&quot;
-## [13] &quot;rprojroot.Rproj&quot;  &quot;tests&quot;            &quot;vignettes&quot;       
-## [16] &quot;wercker.yml&quot;</code></pre>
+<pre><code>##  [1] &quot;appveyor.yml&quot;     &quot;DESCRIPTION&quot;      &quot;inst&quot;            
+##  [4] &quot;Makefile&quot;         &quot;makeR&quot;            &quot;man&quot;             
+##  [7] &quot;NAMESPACE&quot;        &quot;NEWS.md&quot;          &quot;NEWS.md.tmpl&quot;    
+## [10] &quot;R&quot;                &quot;readme&quot;           &quot;README.md&quot;       
+## [13] &quot;rprojroot.Rcheck&quot; &quot;rprojroot.Rproj&quot;  &quot;tests&quot;           
+## [16] &quot;vignettes&quot;        &quot;wercker.yml&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find a file relative to the root</span>
 <span class="kw">file.exists</span>(<span class="kw">find_root_file</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;root.R&quot;</span>, <span class="dt">criterion =</span> <span class="kw">has_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
