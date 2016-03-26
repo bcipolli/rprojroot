@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Index. rprojroot 0.2</title>
+<title>Index. rprojroot 1.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">rprojroot 0.2</a>
+      <a class="brand" href="#">rprojroot 1.0</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -54,7 +54,7 @@
   <div class="span8">
     <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<h1><a href="https://krlmlr.github.io/rprojroot">rprojroot</a> <a href="https://app.wercker.com/project/bykey/c4dfa136cd78514514e259cc388e880c"><img src="https://app.wercker.com/status/c4dfa136cd78514514e259cc388e880c/s/master" alt="wercker status" title="wercker status"/></a> <a href="https://ci.appveyor.com/project/krlmlr/rprojroot"><img src="https://ci.appveyor.com/api/projects/status/github/krlmlr/rprojroot?branch=master" alt="AppVeyor Build Status"/></a> <a href="https://codecov.io/github/krlmlr/rprojroot?branch=master"><img src="https://codecov.io/github/krlmlr/rprojroot/coverage.svg?branch=master" alt="codecov.io"/></a> <a href="https://cran.r-project.org/package=rprojroot"><img src="http://www.r-pkg.org/badges/version/rprojroot" alt="CRAN\_Status\_Badge"/></a></h1>
+<h1><a href="https://krlmlr.github.io/rprojroot">rprojroot</a> <a href="https://app.wercker.com/project/bykey/c4dfa136cd78514514e259cc388e880c"><img src="https://app.wercker.com/status/c4dfa136cd78514514e259cc388e880c/s/master" alt="wercker status" title="wercker status"/></a> <a href="https://ci.appveyor.com/project/krlmlr/rprojroot"><img src="https://ci.appveyor.com/api/projects/status/github/krlmlr/rprojroot?branch=master&amp;type=svg" alt="AppVeyor Build Status"/></a> <a href="https://codecov.io/github/krlmlr/rprojroot?branch=master"><img src="https://codecov.io/github/krlmlr/rprojroot/coverage.svg?branch=master" alt="codecov.io"/></a> <a href="https://cran.r-project.org/package=rprojroot"><img src="http://www.r-pkg.org/badges/version/rprojroot" alt="CRAN\_Status\_Badge"/></a></h1>
 
 <p>This package helps accessing files relative to a <em>project root</em> to <a href="https://gist.github.com/jennybc/362f52446fe1ebc4c49f">stop the working directory insanity</a>.</p>
 
@@ -70,11 +70,10 @@
 
 <pre><code class="r">dir(rprojroot::find_root(&quot;DESCRIPTION&quot;))
 #&gt;  [1] &quot;appveyor.yml&quot;    &quot;DESCRIPTION&quot;     &quot;inst&quot;           
-#&gt;  [4] &quot;Makefile&quot;        &quot;makeR&quot;           &quot;man&quot;            
-#&gt;  [7] &quot;NAMESPACE&quot;       &quot;NEWS.md&quot;         &quot;NEWS.md.tmpl&quot;   
-#&gt; [10] &quot;R&quot;               &quot;readme&quot;          &quot;README.md&quot;      
-#&gt; [13] &quot;rprojroot.Rproj&quot; &quot;tests&quot;           &quot;vignettes&quot;      
-#&gt; [16] &quot;wercker.yml&quot;
+#&gt;  [4] &quot;Makefile&quot;        &quot;NAMESPACE&quot;       &quot;NEWS.md&quot;        
+#&gt;  [7] &quot;NEWS.md.tmpl&quot;    &quot;R&quot;               &quot;readme&quot;         
+#&gt; [10] &quot;README.md&quot;       &quot;rprojroot.Rproj&quot; &quot;tests&quot;          
+#&gt; [13] &quot;vignettes&quot;       &quot;wercker.yml&quot;
 </code></pre>
 
 <h2>Installation and further reading</h2>
