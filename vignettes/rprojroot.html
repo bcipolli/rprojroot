@@ -12,7 +12,7 @@
 
 <meta name="author" content="Kirill Müller" />
 
-<meta name="date" content="2016-03-27" />
+<meta name="date" content="2016-03-29" />
 
 <title>Finding files in project subdirectories</title>
 
@@ -72,7 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title">Finding files in project subdirectories</h1>
 <h4 class="author"><em>Kirill Müller</em></h4>
-<h4 class="date"><em>2016-03-27</em></h4>
+<h4 class="date"><em>2016-03-29</em></h4>
 
 </div>
 
@@ -105,7 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(root$<span class="kw">find_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>), <span class="dv">3</span>)</code></pre></div>
 <pre><code>## [1] &quot;Package: rprojroot&quot;                            
 ## [2] &quot;Title: Finding Files in Project Subdirectories&quot;
-## [3] &quot;Version: 1.0-1&quot;</code></pre>
+## [3] &quot;Version: 1.0-2&quot;</code></pre>
 <p>If the current working directory can be outside of your project, construct an accessor to your root using the <code>root$make_fix_file()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_file &lt;-<span class="st"> </span>root$<span class="kw">make_fix_file</span>()</code></pre></div>
 <p>Note that <code>root_file()</code> is a <em>function</em> that will find files below your root:</p>
@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 )</code></pre></div>
 <pre><code>## [1] &quot;Package: rprojroot&quot;                            
 ## [2] &quot;Title: Finding Files in Project Subdirectories&quot;
-## [3] &quot;Version: 1.0-1&quot;</code></pre>
+## [3] &quot;Version: 1.0-2&quot;</code></pre>
 <p>If you know the absolute path of some directory below your project, but cannot be sure of your current working directory, pass that absolute path to <code>root$make_fix_file()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_file &lt;-<span class="st"> </span>root$<span class="kw">make_fix_file</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">Users</span><span class="ch">\\</span><span class="st">User Name</span><span class="ch">\\</span><span class="st">...&quot;</span>)</code></pre></div>
 <p>Get the path of standalone R scripts or vignettes using the <code>thisfile()</code> function in the <code>kimisc</code> package:</p>
