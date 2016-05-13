@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>find_root_file. rprojroot 1.0-2</title>
+<title>find_root_file. rprojroot 1.0-3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">rprojroot 1.0-2</a>
+      <a class="brand" href="#">rprojroot 1.0-3</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -92,21 +92,15 @@ The normalized path of the root as specified by the search criteria.
       <p>The <code>find_root_file</code> function is a simple wrapper around
 <code><a href='find_root.html'>find_root</a></code> that
 appends an arbitrary number of path components to the root using
-<code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>.
-The function <code>make_find_root_file</code> can be used to create shorthand functions
-such as <code>find_rstudio_root_file</code> and <code>find_package_root_file</code>.
-In many cases, the function <code>make_fix_root_file</code> is even more useful:
-It creates a shorthand function that is tied to a fixed root (as opposed to
-<code>make_find_root_file</code> which creates a function that will look for the
-root every time it is called).</p>
+<code><a href='http://www.inside-r.org/r-doc/base/file.path'>file.path</a></code>.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>## Not run: 
 # find_package_root_file(&quot;tests&quot;, &quot;testthat.R&quot;)
-# make_find_root_file(glob2rx(&quot;DESCRIPTION&quot;), &quot;^Package: &quot;)
-# make_fix_root_file(glob2rx(&quot;DESCRIPTION&quot;), &quot;^Package: &quot;)
+# has_file(&quot;DESCRIPTION&quot;, &quot;^Package: &quot;)$find_file
+# has_file(&quot;DESCRIPTION&quot;, &quot;^Package: &quot;)$make_fix_file(&quot;.&quot;)
 # ## End(Not run)
 
 </div></pre>

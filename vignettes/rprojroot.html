@@ -12,7 +12,7 @@
 
 <meta name="author" content="Kirill Müller" />
 
-<meta name="date" content="2016-03-29" />
+<meta name="date" content="2016-05-13" />
 
 <title>Finding files in project subdirectories</title>
 
@@ -67,14 +67,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<div class="fluid-row" id="header">
 
-
-<h1 class="title">Finding files in project subdirectories</h1>
+<h1 class="title toc-ignore">Finding files in project subdirectories</h1>
 <h4 class="author"><em>Kirill Müller</em></h4>
-<h4 class="date"><em>2016-03-29</em></h4>
+<h4 class="date"><em>2016-05-13</em></h4>
 
-</div>
 
 
 <p>The <code>rprojroot</code> package solves a seemingly trivial but annoying problem that occurs sooner or later in any largish project: How to find files in subdirectories? Ideally, file paths are relative to the <em>project root</em>.</p>
@@ -105,17 +102,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(root$<span class="kw">find_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>), <span class="dv">3</span>)</code></pre></div>
 <pre><code>## [1] &quot;Package: rprojroot&quot;                            
 ## [2] &quot;Title: Finding Files in Project Subdirectories&quot;
-## [3] &quot;Version: 1.0-2&quot;</code></pre>
-<p>If the current working directory can be outside of your project, construct an accessor to your root using the <code>root$make_fix_file()</code> function:</p>
+## [3] &quot;Version: 1.0-3&quot;</code></pre>
+<p>You can also construct an accessor to your root using the <code>root$make_fix_file()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_file &lt;-<span class="st"> </span>root$<span class="kw">make_fix_file</span>()</code></pre></div>
-<p>Note that <code>root_file()</code> is a <em>function</em> that will find files below your root:</p>
+<p>Note that <code>root_file()</code> is a <em>function</em> that works just like <code>$find_file()</code> but will find the files even if the current working directory is outside your project:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">withr::<span class="kw">with_dir</span>(
   <span class="st">&quot;../..&quot;</span>,
   <span class="kw">readLines</span>(<span class="kw">root_file</span>(<span class="st">&quot;DESCRIPTION&quot;</span>), <span class="dv">3</span>)
 )</code></pre></div>
 <pre><code>## [1] &quot;Package: rprojroot&quot;                            
 ## [2] &quot;Title: Finding Files in Project Subdirectories&quot;
-## [3] &quot;Version: 1.0-2&quot;</code></pre>
+## [3] &quot;Version: 1.0-3&quot;</code></pre>
 <p>If you know the absolute path of some directory below your project, but cannot be sure of your current working directory, pass that absolute path to <code>root$make_fix_file()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_file &lt;-<span class="st"> </span>root$<span class="kw">make_fix_file</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">Users</span><span class="ch">\\</span><span class="st">User Name</span><span class="ch">\\</span><span class="st">...&quot;</span>)</code></pre></div>
 <p>Get the path of standalone R scripts or vignettes using the <code>thisfile()</code> function in the <code>kimisc</code> package:</p>
@@ -156,13 +153,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In addition, character values are coerced to <code>has_file</code> criteria by default, this coercion is applied automatically by <code>find_root()</code>. (This feature is used by the introductory example.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.root_criterion</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</code></pre></div>
 <pre><code>## Root criterion: Contains a file 'DESCRIPTION'</code></pre>
-<p>The return value of these functions can be stored and reused; in fact, the package provides 2 such criteria:</p>
+<p>The return value of these functions can be stored and reused; in fact, the package provides 3 such criteria:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">criteria</code></pre></div>
 <pre><code>## $is_rstudio_project
 ## Root criterion: Contains a file matching '[.]Rproj$' with contents matching '^Version: ' in the first 1 lines
 ## 
 ## $is_r_package
 ## Root criterion: Contains a file 'DESCRIPTION' with contents matching '^Package: '
+## 
+## $from_wd
+## Root criterion: From current working directory
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;root_criteria&quot;</code></pre>
@@ -194,8 +194,13 @@ is_projecttemplate_project</code></pre></div>
 <p>Each criterion actually contains a function that allows finding a file below the root specified by this criterion. As our project does not have a file named <code>LICENSE</code>, querying the root results in an error:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Use the has_license criterion to find the root</span>
 R &lt;-<span class="st"> </span>has_license$find_file
-
-<span class="co"># Our package does not have a LICENSE file, trying to find the root results in an error</span>
+R</code></pre></div>
+<pre><code>## function (..., path = &quot;.&quot;) 
+## {
+##     find_root_file(..., criterion = criterion, path = path)
+## }
+## &lt;environment: 0x46ed4d0&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Our package does not have a LICENSE file, trying to find the root results in an error</span>
 <span class="kw">R</span>()</code></pre></div>
 <pre><code>## Error: No root directory found. Test criterion:
 ## Contains a file 'LICENSE'</code></pre>
@@ -205,8 +210,13 @@ R &lt;-<span class="st"> </span>has_license$find_file
 <p>We can also create a function that computes a path relative to the root <em>at creation time</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define a function that computes file paths below the current root</span>
 F &lt;-<span class="st"> </span>is_r_package$<span class="kw">make_fix_file</span>()
-
-<span class="co"># Show contents of the NAMESPACE file in our project</span>
+F</code></pre></div>
+<pre><code>## function (...) 
+## {
+##     file.path(&quot;/pipeline/source&quot;, ...)
+## }
+## &lt;environment: 0x49060d8&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show contents of the NAMESPACE file in our project</span>
 <span class="kw">readLines</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))</code></pre></div>
 <pre><code>##  [1] &quot;# Generated by roxygen2: do not edit by hand&quot;
 ##  [2] &quot;&quot;                                            
@@ -222,20 +232,22 @@ F &lt;-<span class="st"> </span>is_r_package$<span class="kw">make_fix_file</spa
 ## [12] &quot;export(find_root)&quot;                           
 ## [13] &quot;export(find_root_file)&quot;                      
 ## [14] &quot;export(find_rstudio_root_file)&quot;              
-## [15] &quot;export(has_file)&quot;                            
-## [16] &quot;export(has_file_pattern)&quot;                    
-## [17] &quot;export(is.root_criterion)&quot;                   
-## [18] &quot;export(is_r_package)&quot;                        
-## [19] &quot;export(is_rstudio_project)&quot;                  
-## [20] &quot;export(root_criterion)&quot;                      
-## [21] &quot;importFrom(utils,str)&quot;</code></pre>
+## [15] &quot;export(from_wd)&quot;                             
+## [16] &quot;export(has_file)&quot;                            
+## [17] &quot;export(has_file_pattern)&quot;                    
+## [18] &quot;export(is.root_criterion)&quot;                   
+## [19] &quot;export(is_r_package)&quot;                        
+## [20] &quot;export(is_rstudio_project)&quot;                  
+## [21] &quot;export(root_criterion)&quot;                      
+## [22] &quot;importFrom(utils,str)&quot;</code></pre>
+<p>This is a more robust alternative to <code>$find_file()</code>, because it <em>fixes</em> the project directory when <code>$make_fix_file()</code> is called, instead of searching for it every time. (For that reason it is also slightly faster, but I doubt this matters in practice.)</p>
 <p>This function can be used even if we later change the working directory to somewhere outside the project:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print the size of the namespace file, working directory outside the project</span>
 withr::<span class="kw">with_dir</span>(
   <span class="st">&quot;../..&quot;</span>,
   <span class="kw">file.size</span>(<span class="kw">F</span>(<span class="st">&quot;NAMESPACE&quot;</span>))
 )</code></pre></div>
-<pre><code>## [1] 561</code></pre>
+<pre><code>## [1] 577</code></pre>
 <p>The <code>make_fix_file()</code> member function also accepts an optional <code>path</code> argument, in case you know your project’s root but the current working directory is somewhere outside. Take a look at the <code>thisfile()</code> function in the <code>kimisc</code> package for getting the path to the current script or <code>knitr</code> document.</p>
 </div>
 </div>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>root_criterion. rprojroot 1.0-2</title>
+<title>root_criterion. rprojroot 1.0-3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">rprojroot 1.0-2</a>
+      <a class="brand" href="#">rprojroot 1.0-3</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -83,6 +83,37 @@ and <code>FALSE</code> otherwise</dd>
       <dd>Regular expression to match the file name</dd>
     </dl>
     
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An S3 object of class <code>root_criterion</code> wit the following members:</p>
+  
+      <p><dl>
+  <dt><code>testfun</code></dt><dd>The <code>testfun</code> argument</dd></p>
+  
+      <p><dt><code>desc</code></dt><dd>The <code>desc</code> argument</dd></p>
+  
+      <p><dt><code>find_file</code></dt><dd>A function with <code>...</code> argument that returns
+    for a path relative to the root specified by this criterion.
+    The optional <code>path</code> argument specifies the starting directory,
+    which defaults to <code>"."</code>.
+  </dd></p>
+  
+      <p><dt><code>make_fix_file</code></dt><dd>A function with a <code>path</code> argument that
+     returns a function that finds paths relative to the root.  For a
+     criterion <code>cr</code>, the result of <code>cr$make_fix_file(".")(...)</code>
+     is identical to <code>cr$find_file(...)</code>. The function created by
+     <code>make_fix_file</code> can be saved to a variable to be more independent
+     of the current working directory.
+  </dd></p>
+  
+      <p></dl></p>
+  
+      <p></dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
@@ -109,7 +140,33 @@ root) with specific contents.</p>
 existence of a file that matches a pattern, with specific contents.</p>
   
     </div>
-      </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>root_criterion(function(path) file.exists(file.path(path, &quot;somefile&quot;)), &quot;Has somefile&quot;)
+</div>
+<div class='output'>Root criterion: Has somefile
+</div>
+<div class='input'>has_file(&quot;DESCRIPTION&quot;)
+</div>
+<div class='output'>Root criterion: Contains a file &#39;DESCRIPTION&#39;
+</div>
+<div class='input'>is_r_package
+</div>
+<div class='output'>Root criterion: Contains a file &#39;DESCRIPTION&#39; with contents matching &#39;^Package: &#39;
+</div>
+<div class='input'>is_r_package$find_file
+</div>
+<div class='output'>function (..., path = &quot;.&quot;) 
+{
+    find_root_file(..., criterion = criterion, path = path)
+}
+&lt;environment: 0x3f44dd8&gt;
+</div>
+<div class='input'>## Not run: 
+# is_r_package$make_fix_file(&quot;.&quot;)
+# ## End(Not run)
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>as.root_criterion</li><li>as.root_criterion.character</li><li>as.root_criterion.root_criterion</li><li>has_file</li><li>has_file_pattern</li><li>is.root_criterion</li><li>root_criterion</li>
