@@ -50,13 +50,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
+  <a href="../articles/rprojroot.html">Documentation</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -91,12 +88,16 @@
 
 <span class='fu'>find_rstudio_root_file</span>(<span class='no'>...</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
 
-<span class='fu'>find_package_root_file</span>(<span class='no'>...</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+<span class='fu'>find_package_root_file</span>(<span class='no'>...</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='fu'>find_remake_root_file</span>(<span class='no'>...</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='fu'>find_testthat_root_file</span>(<span class='no'>...</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>...</dt>
-      <dd>Additional arguments passed to <code>file.path</code></dd>
+      <dd>Further path components passed to <code>file.path</code></dd>
       <dt>criterion</dt>
       <dd>A criterion, will be coerced using
 <code><a href='root_criterion.html'>as.root_criterion</a></code></dd>
@@ -107,7 +108,8 @@
     <div class="Value">
       <h2>Value</h2>
 
-      <p>The normalized path of the root as specified by the search criteria.
+      <p>The normalized path of the root as specified by the search criteria,
+  with the additional path components appended.
   Throws an error if no root is found</p>
     </div>
 

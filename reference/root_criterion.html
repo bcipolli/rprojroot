@@ -50,13 +50,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
+  <a href="../articles/rprojroot.html">Documentation</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -87,7 +84,7 @@
 given directory is a project root.</p>
     
 
-    <pre><span class='fu'>root_criterion</span>(<span class='no'>testfun</span>, <span class='no'>desc</span>)
+    <pre><span class='fu'>root_criterion</span>(<span class='no'>testfun</span>, <span class='no'>desc</span>, <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>is.root_criterion</span>(<span class='no'>x</span>)
 
@@ -101,7 +98,9 @@ given directory is a project root.</p>
 
 <span class='fu'>has_file</span>(<span class='no'>filepath</span>, <span class='kw'>contents</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)
 
-<span class='fu'>has_file_pattern</span>(<span class='no'>pattern</span>, <span class='kw'>contents</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)</pre>
+<span class='fu'>has_file_pattern</span>(<span class='no'>pattern</span>, <span class='kw'>contents</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)
+
+<span class='fu'>has_dirname</span>(<span class='no'>dirname</span>, <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -111,6 +110,8 @@ if the directory specified by this parameter is the project root,
 and <code>FALSE</code> otherwise</dd>
       <dt>desc</dt>
       <dd>A textual description of the test criterion</dd>
+      <dt>subdir</dt>
+      <dd>Subdirectories to start the search in, if found</dd>
       <dt>x</dt>
       <dd>An object</dd>
       <dt>filepath</dt>
@@ -123,6 +124,8 @@ and <code>FALSE</code> otherwise</dd>
     input on the connection.</dd>
       <dt>pattern</dt>
       <dd>Regular expression to match the file name</dd>
+      <dt>dirname</dt>
+      <dd>A directory name, without subdirectories</dd>
     </dl>
     
     <div class="Value">
@@ -132,6 +135,7 @@ and <code>FALSE</code> otherwise</dd>
       <p><dl class='dl-horizontal'>
   <dt><code>testfun</code></dt><dd>The <code>testfun</code> argument</dd>
   <dt><code>desc</code></dt><dd>The <code>desc</code> argument</dd>
+  <dt><code>subdir</code></dt><dd>The <code>subdir</code> argument</dd>
   <dt><code>find_file</code></dt><dd>A function with <code>...</code> argument that returns
     for a path relative to the root specified by this criterion.
     The optional <code>path</code> argument specifies the starting directory,
@@ -160,6 +164,8 @@ existence of a specific file (which itself can be in a subdirectory of the
 root) with specific contents.</p>
       <p>The <code>has_file_pattern</code> function constructs a criterion that checks for the
 existence of a file that matches a pattern, with specific contents.</p>
+      <p>The <code>has_dirname</code> function constructs a criterion that checks if the
+<code><a href='http://www.rdocumentation.org/packages/basename/topics/base'>dirname</a></code> has a specific name.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
@@ -170,7 +176,7 @@ existence of a file that matches a pattern, with specific contents.</p>
 #&gt; {
 #&gt;     find_root_file(..., criterion = criterion, path = path)
 #&gt; }
-#&gt; &lt;environment: 0x3cfbdc0&gt;
+#&gt; &lt;environment: 0x3ffde30&gt;
 #&gt; </div><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># is_r_package$make_fix_file(".")</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
