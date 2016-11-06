@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/krlmlr/rprojroot">
@@ -70,15 +70,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Is a directory the project root?</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Is a directory the project root?</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Objects of the <code>root_criterion</code> class decide if a
 given directory is a project root.</p>
@@ -102,7 +103,7 @@ given directory is a project root.</p>
 
 <span class='fu'>has_dirname</span>(<span class='no'>dirname</span>, <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>testfun</dt>
       <dd>A function with one parameter that returns <code>TRUE</code>
@@ -128,11 +129,10 @@ and <code>FALSE</code> otherwise</dd>
       <dd>A directory name, without subdirectories</dd>
     </dl>
     
-    <div class="Value">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p>An S3 object of class <code>root_criterion</code> wit the following members:</p>
-      <p><dl class='dl-horizontal'>
+    <p>An S3 object of class <code>root_criterion</code> wit the following members:</p>
+    <p><dl class='dl-horizontal'>
   <dt><code>testfun</code></dt><dd>The <code>testfun</code> argument</dd>
   <dt><code>desc</code></dt><dd>The <code>desc</code> argument</dd>
   <dt><code>subdir</code></dt><dd>The <code>subdir</code> argument</dd>
@@ -149,44 +149,56 @@ and <code>FALSE</code> otherwise</dd>
      of the current working directory.
   </dd>
 </dl></p>
-    </div>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p>Construct criteria using <code>root_criterion</code> in a very general fashion
+    <p>Construct criteria using <code>root_criterion</code> in a very general fashion
 by specifying a function with a <code>path</code> argument, and a description.</p>
-      <p>The <code>as.root_criterion</code> function accepts objects of class
+    <p>The <code>as.root_criterion</code> function accepts objects of class
 <code>root_criterion</code>, and character values; the latter will be
 converted to criteria using <code>has_file</code>.</p>
-      <p>The <code>has_file</code> function constructs a criterion that checks for the
+    <p>The <code>has_file</code> function constructs a criterion that checks for the
 existence of a specific file (which itself can be in a subdirectory of the
 root) with specific contents.</p>
-      <p>The <code>has_file_pattern</code> function constructs a criterion that checks for the
+    <p>The <code>has_file_pattern</code> function constructs a criterion that checks for the
 existence of a file that matches a pattern, with specific contents.</p>
-      <p>The <code>has_dirname</code> function constructs a criterion that checks if the
-<code><a href='http://www.rdocumentation.org/packages/basename/topics/base'>dirname</a></code> has a specific name.</p>
-    </div>
+    <p>The <code>has_dirname</code> function constructs a criterion that checks if the
+<code><a href='http://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></code> has a specific name.</p>
     
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>root_criterion</span>(<span class='kw'>function</span>(<span class='no'>path</span>) <span class='fu'>file.exists</span>(<span class='fu'>file.path</span>(<span class='no'>path</span>, <span class='st'>"somefile"</span>)), <span class='st'>"Has somefile"</span>)</div><div class='output co'>#&gt; Root criterion: Has somefile
-#&gt; </div><div class='input'><span class='fu'>has_file</span>(<span class='st'>"DESCRIPTION"</span>)</div><div class='output co'>#&gt; Root criterion: Contains a file &#39;DESCRIPTION&#39;
-#&gt; </div><div class='input'><span class='no'>is_r_package</span></div><div class='output co'>#&gt; Root criterion: Contains a file &#39;DESCRIPTION&#39; with contents matching &#39;^Package: &#39;
-#&gt; </div><div class='input'><span class='no'>is_r_package</span>$<span class='no'>find_file</span></div><div class='output co'>#&gt; function (..., path = &quot;.&quot;) 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>root_criterion</span>(<span class='kw'>function</span>(<span class='no'>path</span>) <span class='fu'>file.exists</span>(<span class='fu'>file.path</span>(<span class='no'>path</span>, <span class='st'>"somefile"</span>)), <span class='st'>"Has somefile"</span>)</div><div class='output co'>#&gt; Root criterion: Has somefile</div><div class='input'><span class='fu'>has_file</span>(<span class='st'>"DESCRIPTION"</span>)</div><div class='output co'>#&gt; Root criterion: Contains a file &#39;DESCRIPTION&#39;</div><div class='input'><span class='no'>is_r_package</span></div><div class='output co'>#&gt; Root criterion: Contains a file &#39;DESCRIPTION&#39; with contents matching &#39;^Package: &#39;</div><div class='input'><span class='no'>is_r_package</span>$<span class='no'>find_file</span></div><div class='output co'>#&gt; function (..., path = &quot;.&quot;) 
 #&gt; {
 #&gt;     find_root_file(..., criterion = criterion, path = path)
 #&gt; }
-#&gt; &lt;environment: 0x3ffde30&gt;
-#&gt; </div><div class='input'><span class='co'>## Not run: ------------------------------------</span>
+#&gt; &lt;environment: 0x27ac950&gt;</div><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># is_r_package$make_fix_file(".")</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Kirill Müller.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

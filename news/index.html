@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-news">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/krlmlr/rprojroot">
@@ -70,6 +70,7 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
@@ -80,44 +81,43 @@
       <h1>Change log <small>All releases</small></h1>
     </div>
 
-    <div id="rprojroot-1-0-7-2016-10-23" class="section level2">
-<h2>rprojroot 1.0-7 (2016-10-23)</h2>
-<ul><li>New <code>is_testthat</code> and <code><a href="../reference/find_root_file.html">find_testthat_root_file()</a></code> that looks for <code>tests/testthat</code> root (#14).</li>
-<li>Improve navbar on project page.</li>
-<li>Uses <code>backports</code> to simplify compatibility with R 3.0.0.</li>
-<li>New <code>is_remake_project</code> and <code><a href="../reference/find_root_file.html">find_remake_root_file()</a></code> that looks for remate project (#17).</li>
-</ul></div>
-    <div id="rprojroot-1-0-6-2016-10-22" class="section level2">
-<h2>rprojroot 1.0-6 (2016-10-22)</h2>
-<ul><li>Travis tests three R versions, and OS X.</li>
-</ul></div>
-    <div id="rprojroot-1-0-5-2016-10-22" class="section level2">
-<h2>rprojroot 1.0-5 (2016-10-22)</h2>
-<ul><li>Use Travis instead of wercker.</li>
-<li>Criteria can be combined with the <code>|</code> operator (#15).</li>
-</ul></div>
-    <div id="rprojroot-1-0-4-2016-05-30" class="section level2">
-<h2>rprojroot 1.0-4 (2016-05-30)</h2>
-<ul><li>Improve AppVeyor testing.</li>
-<li>Restore compatibility with R &lt; 3.2.</li>
-<li>Add package documentation with a few examples (#13).</li>
-</ul></div>
-    <div id="rprojroot-1-0-3-2016-05-13" class="section level2">
-<h2>rprojroot 1.0-3 (2016-05-13)</h2>
-<ul><li>New root criterion <code>from_wd</code>, useful for creating accessors to a known path (#11).</li>
+    <div class="contents">
+    <div id="rprojroot-1-1-2016-10-29" class="section level1">
+<h1 class="hasAnchor">
+<a href="#rprojroot-1-1-2016-10-29" class="anchor"> </a>rprojroot 1.1 (2016-10-29)</h1>
+<ul><li>Compatibility
+<ul><li>Compatible with R &gt;= 3.0.0 with the help of the <code>backports</code> package.</li>
+</ul></li>
+<li>New root criteria
+<ul><li>
+<code>is_remake_project</code> and <code><a href="../reference/find_root_file.html">find_remake_root_file()</a></code> look for <a href="https://github.com/richfitz/remake">remake</a> project (#17).</li>
+<li>
+<code>is_testthat</code> and <code><a href="../reference/find_root_file.html">find_testthat_root_file()</a></code> that looks for <code>tests/testthat</code> root (#14).</li>
+<li>
+<code>from_wd</code>, useful for creating accessors to a known path (#11).</li>
+</ul></li>
+<li>Minor enhancement
+<ul><li>Criteria can be combined with the <code>|</code> operator (#15).</li>
+</ul></li>
+<li>Documentation
+<ul><li>Add package documentation with a few examples (#13).</li>
 <li>Clarify difference between <code>find_file()</code> and <code>make_fix_file()</code> in vignette (#9).</li>
 <li>Remove unexported functions from documentation and examples (#10).</li>
+<li>Use <code>pkgdown</code> to create website.</li>
+</ul></li>
+<li>Testing
+<ul><li>Use Travis instead of wercker. Travis tests three R versions, and OS X.</li>
+<li>Improve AppVeyor testing.</li>
+</ul></li>
 </ul></div>
-    <div id="rprojroot-1-0-2-2016-03-28" class="section level2">
-<h2>rprojroot 1.0-2 (2016-03-28)</h2>
+    <div id="rprojroot-1-0-2-2016-03-28" class="section level1">
+<h1 class="hasAnchor">
+<a href="#rprojroot-1-0-2-2016-03-28" class="anchor"> </a>rprojroot 1.0-2 (2016-03-28)</h1>
 <ul><li>Fix test that fails on Windows only on CRAN.</li>
 </ul></div>
-    <div id="rprojroot-1-0-1-2016-03-26" class="section level2">
-<h2>rprojroot 1.0-1 (2016-03-26)</h2>
-<ul><li>Updated NEWS.</li>
-</ul></div>
     <div id="rprojroot-1-0-2016-03-26" class="section level1">
-<h1>rprojroot 1.0 (2016-03-26)</h1>
+<h1 class="hasAnchor">
+<a href="#rprojroot-1-0-2016-03-26" class="anchor"> </a>rprojroot 1.0 (2016-03-26)</h1>
 <p>Initial CRAN release.</p>
 <ul><li>S3 class <code>root_criterion</code>:
 <ul><li>Member functions: <code>find_file()</code> and <code>make_fix_file()</code>
@@ -142,28 +142,31 @@
 </ul></li>
 <li>Vignette</li>
 </ul></div>
+    </div>
   </div>
 
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar"><div id="tocnav">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rprojroot-1-0-7-2016-10-23">1.0-7</a></li>
-        <li><a href="#rprojroot-1-0-6-2016-10-22">1.0-6</a></li>
-        <li><a href="#rprojroot-1-0-5-2016-10-22">1.0-5</a></li>
-        <li><a href="#rprojroot-1-0-4-2016-05-30">1.0-4</a></li>
-        <li><a href="#rprojroot-1-0-3-2016-05-13">1.0-3</a></li>
+        <li><a href="#rprojroot-1-1-2016-10-29">1.1</a></li>
         <li><a href="#rprojroot-1-0-2-2016-03-28">1.0-2</a></li>
-        <li><a href="#rprojroot-1-0-1-2016-03-26">1.0-1</a></li>
         <li><a href="#rprojroot-1-0-2016-03-26">1.0</a></li>
       </ul>
-    </div></div>
+    </div>
   </div>
 
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Kirill Müller.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 
